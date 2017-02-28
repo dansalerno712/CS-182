@@ -1,0 +1,76 @@
+#ifndef _SORTING_H_
+#define _SORTING_H_
+
+#include <iostream>
+#include <cstring>
+#include "Dungeon.hh"
+using namespace std;
+/* 
+ * I pledge my honor that I have abided by the Stevens Honor System
+ *
+ * Dan Salerno
+ */
+/*
+ * Elem is either an int or a string
+ * Comp is a comparator used to compare 2 ints or 2 strings
+ */
+template <class Elem, class Comp>
+/*
+ * This is a class that implements the insertion, shell, and merge sort
+ * on arrays of type int and string
+ * 
+ * Author: Dan Salerno
+ */
+class Sortings
+{
+ public:
+  static void merge(Elem *arr, unsigned int n);
+  static void quick(Elem *arr, unsigned int n); // do merge or this one
+  static void select(Elem *arr, unsigned int n);
+  static void insert(Elem *arr, unsigned int n); // do select or this one
+  static void shell(Elem *arr, unsigned int n);
+  static void radix(Elem *arr, unsigned int n); // do shell or this one
+// when using radix, Comp should be a class
+  // with a static method "uintVal(...)" that gives an unsigned int representation of the items
+ private:
+  // These are all optional, add or remove as functions as you need
+  static const unsigned int THRESHOLD = 5; // used by shell (I also use it in merge & quick)
+  static const unsigned int RADIX = 16; // used by radix
+  static void insert(Elem *arr, unsigned int incr, unsigned int n); // used by shell
+  static void swap(Elem *arr, unsigned int, unsigned int);
+  static void mergeRecurse(Elem *arr, Elem tmp[], unsigned int l, unsigned int r); // used by merge
+  static void quickRecurse(Elem *arr, unsigned int l, unsigned int r); // used by quick
+  static unsigned int partition(Elem *arr, unsigned int l, unsigned int r); // used by quickRecurse
+  static unsigned int findPivot(Elem *arr, unsigned int l, unsigned int r); // used by quickRecurse
+};
+
+class intuival
+{
+public:
+  static unsigned int uintVal(int n);
+};
+
+/*
+ * Used as comparator for int arrays
+ * Author: Dan Salerno
+ */
+class intintCompare
+{
+ public:
+  static bool lt(int, int);
+  static bool gt(int, int);
+  static bool eq(int, int);
+};
+/*
+ * Used as comparator for string arrays
+ * Author: Dan Salerno
+ */
+class strstrCompare
+{
+ public:
+  static bool lt(char*, char*);
+  static bool gt(char*, char*);
+  static bool eq(char*, char*);  
+};
+
+#endif
